@@ -11,39 +11,33 @@
  * 
  * <code>
  * 	// Method A
- * 	Service::get('some/(path)', array('html', 'json', 'xml'), function(Service $service, $arg1)
+ * 	Service::get('user/(:any)', array('html', 'json', 'xml'), function(Service $service, $slug)
  * 	{
- * 		$service->data['users'] = User::where_active(1);
+ * 		$service->data['user'] = User::where_slug($slug);
  * 		
- * 		switch ($service->type)
+ * 		// Handle HTML type
+ * 		if ($service->type == 'html')
  * 		{
- * 			case 'html':
- * 				return View::make('some.view', array(
- * 					'content' => $service->data
- * 				));
- * 			break;
+ * 			return View::make('user.show', array(
+ * 				'user' => $service->data['user']
+ * 			));
  * 		}
- * 		
- * 		// return $service; implied
  * 	});
  * 	
  * 	// Method B
- * 	Route::get(array('some/path', 'some/path.(json|xml)'), function($type = 'html')
+ * 	Route::get(array('user/(:any)', 'user/(:any).(json|xml)'), function($slug, $type = 'html')
  * 	{
- * 		return Service::respond($type, array('html', 'json', 'xml'), function(Service $service)
+ * 		return Service::respond($type, array('html', 'json', 'xml'), function(Service $service) use ($slug)
  * 		{
- * 			$service->data['users'] = User::where_active(1);
+ * 			$service->data['user'] = User::where_slug($slug);
  * 
- *  		switch ($service->type)
+ * 			// Handle HTML type
+ *  		if ($service->type == 'html')
  * 			{
- * 				case 'html':
- * 					return View::make('some.view', array(
- * 						'content' => $service->data
- * 					));
- * 				break;
+ * 				return View::make('user.show', array(
+ * 					'user' => $service->data['user']
+ * 				));
  * 			}
- * 		
- * 			// return $service; implied
  * 		});
  * 	});
  * </code>
