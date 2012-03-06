@@ -70,7 +70,7 @@ class Service extends Response
 	 * @param  string $type
 	 * @return void
 	 */
-	protected public function __construct($type)
+	public function __construct($type)
 	{
 		// Content is initially blank
 		parent::__construct('');
