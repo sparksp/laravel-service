@@ -157,7 +157,7 @@ class Service extends Response
 		{
 			return $type;
 		}
-		/* check for ?format={type}
+		/* check for ?format={type} */
 		else if ($type = Input::get('format'))
 		{
 			return $type;
